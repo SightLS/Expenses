@@ -14,6 +14,9 @@
         <li class="payment__row">{{ payment.date }}</li>
         <li class="payment__row">{{ payment.category }}</li>
         <li class="payment__row">{{ payment.value }}</li>
+        <li class="payments__row">
+          <img class="settings-img" src="" alt="">
+        </li>
       </ul>
     </div>
     <div class="pages">
