@@ -8,14 +8,18 @@
         <div class="payment__row">Value</div>
       </div>
       <ul class="payment"
-           v-for="(payment, i_payment) in paymentsList[pages]" :key="i_payment"
+          v-for="(payment, i_payment) in paymentsList[pages]" :key="i_payment"
       >
         <li class="payment__row">{{ numberList(i_payment) }}</li>
         <li class="payment__row">{{ payment.date }}</li>
         <li class="payment__row">{{ payment.category }}</li>
         <li class="payment__row">{{ payment.value }}</li>
         <li class="payments__row">
-          <img class="settings-img" src="" alt="">
+          <img
+            class="settings-img" src="../assets/expenses-settings.png" alt="settings"
+            @click="modalSettings = !modalSettings"
+          >
+          <ModalSettings v-if="modalSettings"/>
         </li>
       </ul>
     </div>
@@ -31,10 +35,13 @@
 </template>
 
 <script>
+import ModalSettings from '@/components/ModalSettings'
 
 export default {
   name: 'ExpensesList',
-  components: {},
+  components: {
+    ModalSettings
+  },
   props: {
     paymentsList: {
       type: Array,
@@ -42,13 +49,14 @@ export default {
     }
   },
   data: () => ({
-    pages: 0
+    pages: 0,
+    modalSettings: false
   }),
   methods: {
-    switchPage (index) {
+    switchPage(index) {
       this.pages = index
     },
-    numberList (index) {
+    numberList(index) {
       return (index + 1) + (5 * this.paymentsList.indexOf(this.paymentsList[this.pages]))
     }
   }
@@ -73,9 +81,19 @@ export default {
 a:hover {
   cursor: pointer;
 }
+
 li {
   list-style-type: none;
 }
+
+.settings-img {
+  width: 25px;
+}
+
+.settings-img:hover {
+  cursor: pointer;
+}
+
 .payment {
   width: 550px;
   border-bottom: 1px solid #F5F5F5;
