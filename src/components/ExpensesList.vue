@@ -19,10 +19,12 @@
             class="settings-img" src="../assets/expenses-settings.png" alt="settings"
             @click="openSettings (numberList(i_payment), i_payment, pages)"
           >
-          <ModalSettings
-            v-if="showModalSettings === numberList(i_payment)"
-            :settings="modalSettings"
-          />
+          <transition name="fade">
+            <ModalSettings
+              v-if="showModalSettings === numberList(i_payment)"
+              :settings="modalSettings"
+            />
+          </transition>
         </li>
       </ul>
     </div>
@@ -135,5 +137,8 @@ li {
 
 .payment:last-child {
   border-bottom: 0px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
 }
 </style>
