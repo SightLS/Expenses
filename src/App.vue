@@ -54,7 +54,9 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
+*{
+  box-sizing: border-box;
+}
 header {
   height: 60px;
   background-color: #32AB9B;

@@ -183,4 +183,7 @@ button {
   border-radius: 5px;
   margin-left: 94px;
 }
+button:hover{
+  cursor: pointer;
+}
 </style>

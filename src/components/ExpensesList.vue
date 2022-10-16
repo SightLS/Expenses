@@ -17,9 +17,12 @@
         <li class="payments__row">
           <img
             class="settings-img" src="../assets/expenses-settings.png" alt="settings"
-            @click="modalSettings = !modalSettings"
+            @click="openSettings (numberList(i_payment))"
           >
-          <ModalSettings v-if="modalSettings"/>
+          <ModalSettings
+            v-if="showModalSettings === numberList(i_payment)"
+            :settings="modalSettings"
+          />
         </li>
       </ul>
     </div>
@@ -50,7 +53,8 @@ export default {
   },
   data: () => ({
     pages: 0,
-    modalSettings: false
+    showModalSettings: false,
+    modalSettings: {}
   }),
   methods: {
     switchPage(index) {
@@ -58,7 +62,23 @@ export default {
     },
     numberList(index) {
       return (index + 1) + (5 * this.paymentsList.indexOf(this.paymentsList[this.pages]))
+    },
+    openSettings (valueIndex) {
+      this.$settings.show({ title: 'kek', content: `${valueIndex - 1}` })
+      this.showModalSettings = valueIndex
+
+    },
+    settingsModalOpen (settings) {
+      this.modalSettings = settings
+      this.showModalSettings = true
+    },
+    settingsModalClose () {
+      this.showModalSettings = false
     }
+  },
+  mounted() {
+    this.$settings.EventBus.$on('show', this.settingsModalOpen)
+    this.$settings.EventBus.$on('hide', this.settingsModalClose)
   }
 }
 </script>
@@ -69,7 +89,8 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 250px;
+  margin-bottom: 20px;
+  height: 290px;
 }
 
 .pages {
