@@ -1,8 +1,5 @@
 <template>
   <div class="content" v-click-outside="close">
-    <div class="title">
-      <p>{{ title }}</p>
-    </div>
     <li @click="editExpenses">Edit {{ content }}</li>
     <li>Delete</li>
   </div>
