@@ -64,7 +64,7 @@ export default {
       return (index + 1) + (5 * this.paymentsList.indexOf(this.paymentsList[this.pages]))
     },
     openSettings (valueIndex) {
-      this.$settings.show({ title: 'kek', content: `${valueIndex - 1}` })
+      this.$settings.show({ content: `${valueIndex - 1}` })
       this.showModalSettings = valueIndex
 
     },

@@ -15,7 +15,6 @@ export default {
     settings: {
       type: Object,
       default: () => ({
-        title: 'settings',
         content: 'kek'
       })
     }
@@ -24,9 +23,6 @@ export default {
     showModal: true
   }),
   computed: {
-    title() {
-      return this.settings?.title || 'modal'
-    },
     content() {
       return this.settings.content
     }
