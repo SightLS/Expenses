@@ -1,11 +1,11 @@
 <template>
   <div class="content" v-click-outside="close">
-    <li @click="editExpenses">Edit {{ content }}</li>
-    <li>Delete</li>
+    <li @click="editExpenses">Edit</li>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'ModalSettings',
   props: {
@@ -20,8 +20,11 @@ export default {
     showModal: true
   }),
   computed: {
-    content() {
-      return this.settings.content
+    paymentPage() {
+      return this.settings.paymentPage
+    },
+    paymentIndex() {
+      return this.settings.paymentIndex
     }
   },
   methods: {
@@ -32,14 +35,13 @@ export default {
     },
     editExpenses() {
       this.$modal.show({
-        title: 'Edit this payment'
+        title: 'Edit this payment',
+        paymentPage: `${this.paymentPage}`,
+        paymentIndex: `${this.paymentIndex}`
       })
-    },
-    deleteExpenses() {
-    //  хз пока
     }
   },
-  mounted () {
+  mounted() {
     setTimeout(() => {
       this.showModal = false
     }, 0)
@@ -50,11 +52,12 @@ export default {
 
 <style scoped>
 .content {
-  background-color: #32AB9B;
-  border: 1px solid black;
+  background-color: #FFFFFFFF;
+  border: 1px solid #47AD9BFF;
+  border-radius: 10px;
   position: absolute;
-  width: 180px;
-  height: 70px;
+  width: 150px;
+  height: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -17,7 +17,7 @@
         <li class="payments__row">
           <img
             class="settings-img" src="../assets/expenses-settings.png" alt="settings"
-            @click="openSettings (numberList(i_payment))"
+            @click="openSettings (numberList(i_payment), i_payment, pages)"
           >
           <ModalSettings
             v-if="showModalSettings === numberList(i_payment)"
@@ -63,8 +63,8 @@ export default {
     numberList(index) {
       return (index + 1) + (5 * this.paymentsList.indexOf(this.paymentsList[this.pages]))
     },
-    openSettings (valueIndex) {
-      this.$settings.show({ content: `${valueIndex - 1}` })
+    openSettings (valueIndex, paymentIndex, paymentPage) {
+      this.$settings.show({ paymentIndex: `${paymentIndex}`, paymentPage: `${paymentPage}` })
       this.showModalSettings = valueIndex
 
     },

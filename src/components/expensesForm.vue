@@ -20,13 +20,15 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'expensesForm',
   props: {
-    // addExpensesLink: {
-    //   type: Array,
-    //   require: true
-    // },
     categoryList: {
       type: Array,
       default: () => []
+    },
+    paymentIndex: {
+      type: String
+    },
+    paymentPage: {
+      type: String
     }
   },
   data: () => ({
@@ -37,7 +39,11 @@ export default {
   methods: {
     checkForm () {
       if (this.value && this.category) {
-        this.addExpenses()
+        if (this.paymentIndex.length === 0) {
+          this.addExpenses()
+        } else {
+            this.editExpenses()
+        }
       } else {
         this.formError()
       }
@@ -56,8 +62,6 @@ export default {
       }
       const check = this.paymentsList.some((e) => {
         const check2 = e.some((i) => {
-          console.log(i)
-          console.log(this.data)
           return JSON.stringify(i) === JSON.stringify(this.data)
         })
         return check2
@@ -68,6 +72,19 @@ export default {
         alert('одно и тоже')
         this.data = data
       }
+    },
+    editExpenses() {
+      const {
+        value,
+        category,
+        date
+      } = this
+      const data = {
+        value,
+        category,
+        date: date || this.currentDay
+      }
+      this.paymentsList[this.paymentPage][this.paymentIndex] = data
     },
     formError () {
       this.$el.querySelectorAll(['input', 'select']).forEach((e) => {
@@ -109,15 +126,15 @@ export default {
   beforeUpdate () {
     this.kek()
     this.localDataPush()
+  },
+  mounted() {
+    if (this.paymentIndex.length > 0) {
+      const editionTarget = this.paymentsList[this.paymentPage][this.paymentIndex]
+      this.value = editionTarget.value
+      this.category = editionTarget.category
+      this.date = editionTarget.date
+    }
   }
-  // created () {
-  //   if (this.addExpensesLink.length) {
-  //     this.category = this.addExpensesLink[0]
-  //     this.value = this.addExpensesLink[1]
-  //     this.date = this.currentDay
-  //   }
-  //   console.log(this.addExpensesLink, 'dasdas')
-  // }
 }
 </script>
 

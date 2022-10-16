@@ -5,6 +5,8 @@
       <expensesForm
         @add-expenses="addExpenses"
         :categoryList="categoryList"
+        :paymentIndex="paymentIndex"
+        :paymentPage="paymentPage"
       />
     </div>
   </div>
@@ -32,6 +34,12 @@ export default {
     ...mapGetters(['categoryList']),
     title () {
       return this.settings?.title || 'Modal window'
+    },
+    paymentIndex () {
+      return this.settings?.paymentIndex || ''
+    },
+    paymentPage () {
+      return this.settings?.paymentPage || ''
     }
   },
   methods: {
